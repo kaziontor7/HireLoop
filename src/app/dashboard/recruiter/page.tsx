@@ -12,7 +12,7 @@ const RecruiterDashboard = () => {
             <span className="text-2xl font-semibold text-white capitalize mb-6 inline-block">
                                 {`Welcome back, ${session?.user?.name}` || "Welcome!"}
                             </span>
-            <DashboardStats  role={"recruiter"}> </DashboardStats>
+            <DashboardStats role={"recruiter"} />
         </div>
     );
 };

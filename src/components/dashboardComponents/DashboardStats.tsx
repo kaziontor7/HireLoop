@@ -11,7 +11,12 @@ import { StatCard } from './StatCard';
 export function DashboardStats({ role }: { role: 'recruiter' | 'seeker' | 'admin' }) {
     
     // 1. Define the data based on the user's role
-    let stats = [];
+    interface StatItem {
+        title: string;
+        value: string;
+        icon: typeof FileText;
+    }
+    let stats: StatItem[] = [];
 
     if (role === 'recruiter') {
         // Matches your reference image exactly

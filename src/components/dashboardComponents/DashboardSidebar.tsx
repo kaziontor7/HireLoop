@@ -9,7 +9,8 @@ import {
     Briefcase, 
     Layers, 
     Settings, 
-    Menu 
+    Menu, 
+    Plus,
 } from "lucide-react";
 import { Button, Drawer } from "@heroui/react";
 
@@ -18,10 +19,11 @@ import { authClient } from "@/lib/auth-client";
 
 const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-    { icon: Building2, label: "My Company", href: "/dashboard/company" },
-    { icon: Briefcase, label: "Manage Jobs", href: "/dashboard/jobs" },
-    { icon: Layers, label: "Applications", href: "/dashboard/applications" },
-    { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+    { icon: Building2, label: "My Company", href: "/dashboard/recruiter/company" },
+    { icon: Briefcase, label: "Manage Jobs", href: "/dashboard/recruiter/jobs" },
+    { icon: Plus, label: "Create Job", href: "/dashboard/recruiter/jobs/new" },
+    { icon: Layers, label: "Applications", href: "/dashboard/recruiter/applications" },
+    { icon: Settings, label: "Settings", href: "/dashboard/recruiter/settings" },
 ];
 
 export function DashboardSidebar() {

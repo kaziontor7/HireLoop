@@ -48,7 +48,7 @@ const SignUpPage = () => {
             email: data.email,
             password: data.password,
             name: data.name,
-            role: data.role, 
+            role: data.role || "seeker", // Default to "seeker" if role is not selected
             callbackURL: "http://localhost:3000/signin" 
         }, {
             onRequest: () => setIsLoading(true),
