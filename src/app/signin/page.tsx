@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -23,6 +23,10 @@ const SignInPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [globalError, setGlobalError] = useState('');
     const [success, setSuccess] = useState('');
+    
+    const searchParams = useSearchParams()
+
+    const redirectTo = searchParams?.get('redirect') || '/'; // Default redirect to dashboard if not specified
 
     // Initialize React Hook Form
     const { 
@@ -46,7 +50,7 @@ const SignInPage = () => {
             onSuccess: () => {
                 setSuccess("Signed in successfully! Redirecting...");
                 // Redirect to dashboard on successful login
-                router.push('/dashboard'); 
+                router.push(redirectTo); 
             },
             onError: (ctx) => {
                 // Display the error (e.g., "Invalid email or password")
@@ -164,7 +168,7 @@ const SignInPage = () => {
                 {/* Footer Link */}
                 <div className="mt-8 text-center text-sm text-gray-400">
                     Don't have an account?{' '}
-                    <Link href="/signup" className="text-[#6b66ff] hover:text-[#8480ff] font-medium transition-colors">
+                    <Link  href={`/signup?redirect=${redirectTo}`} className="text-[#6b66ff] hover:text-[#8480ff] font-medium transition-colors">
                         Sign Up
                     </Link>
                 </div>

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Label, Radio, RadioGroup, Form } from "@heroui/react";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 
 // Import your Better Auth client
@@ -15,6 +15,7 @@ interface SignUpFormData {
     email?: string;
     password?: string;
     role?: string;
+    plan?: string;
 }
 
 const SignUpPage = () => {
@@ -25,6 +26,10 @@ const SignUpPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [globalError, setGlobalError] = useState('');
     const [success, setSuccess] = useState('');
+      
+        const searchParams = useSearchParams()
+    
+        const redirectTo = searchParams?.get('redirect') || '/';
 
     // Native onSubmit Handler
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,11 +42,15 @@ const SignUpPage = () => {
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries()) as unknown as SignUpFormData;
 
+         const plan = data.role === "recruiter" ? "recruiter_free" : "seeker_free"; // Default to seeker_free if role is not specified
+
         // Basic validation check
         if (!data.email || !data.password || !data.name) {
              setGlobalError("Please fill out all required fields.");
              return;
         }
+
+
 
         // Better Auth Integration
         await authClient.signUp.email({
@@ -49,12 +58,12 @@ const SignUpPage = () => {
             password: data.password,
             name: data.name,
             role: data.role || "seeker", // Default to "seeker" if role is not selected
-            callbackURL: "http://localhost:3000/signin" 
+            plan
         }, {
             onRequest: () => setIsLoading(true),
             onSuccess: () => {
                 setSuccess("Account created successfully! Redirecting...");
-                router.push('/');
+                router.push(redirectTo); // Redirect to the specified page after successful signup
             },
             onError: (ctx) => {
                 setGlobalError(ctx.error.message || "An unexpected error occurred.");
@@ -193,7 +202,7 @@ const SignUpPage = () => {
                 {/* Footer Link */}
                 <div className="mt-8 text-center text-sm text-gray-400">
                     Already have an account?{' '}
-                    <Link href="/signin" className="text-[#6b66ff] hover:text-[#8480ff] font-medium transition-colors">
+                    <Link  href={`/signin?redirect=${redirectTo}`} className="text-[#6b66ff] hover:text-[#8480ff] font-medium transition-colors">
                         Sign In
                     </Link>
                 </div>

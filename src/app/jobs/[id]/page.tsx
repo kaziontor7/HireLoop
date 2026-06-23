@@ -189,12 +189,13 @@ export default async function JobDetailsPage({ params }: PageProps) {
                             <div className="h-px bg-white/5 w-full my-2" />
 
                             {/* --- THE APPLY NOW BUTTON --- */}
-                            <button 
+                            <Link
+                                href={`/jobs/${id}/apply`}
                                 className="w-full bg-[#5C53FE] hover:bg-[#4b43db] active:scale-[0.99] text-white font-bold text-sm h-11 rounded-xl shadow-lg shadow-[#5C53FE]/10 hover:shadow-[#5C53FE]/20 transition-all cursor-pointer flex items-center justify-center gap-2"
                             >
                                 <CheckCircle2 className="w-4 h-4" />
                                 Apply For This Position
-                            </button>
+                            </Link>
                         </div>
                         
                         {/* Subtle safety notice text below card */}
