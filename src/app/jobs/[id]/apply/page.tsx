@@ -6,7 +6,7 @@ import React from 'react';
 import ApplyForm from './ApplyForm';
 import { ArrowLeft, Building2, MapPin, Briefcase, DollarSign, CreditCard, Layers } from 'lucide-react';
 import Link from 'next/link';
-import { getApplicationsByJobId } from '@/lib/api/applications';
+import { getApplicationsByApplicant } from '@/lib/api/applications';
 import { getPlan } from '@/lib/api/plans';
 
 interface PageProps {
@@ -22,7 +22,7 @@ export default async function ApplyPage({ params }: PageProps) {
         redirect(`/signin?redirect=/jobs/${id}/apply`);
     }
 
-    const applications = await getApplicationsByJobId(user?.id);
+    const applications = await getApplicationsByApplicant(user?.id);
     const currentApplicationCount = applications?.length || 0;
 
     const plan = await getPlan(user?.plan || "seeker_free"); 

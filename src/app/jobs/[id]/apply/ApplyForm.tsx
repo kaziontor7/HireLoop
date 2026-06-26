@@ -51,7 +51,7 @@ export default function ApplyForm({ jobDetails, applicant, applications }: Apply
         };
 
        const res =  await createApplication(submissionData);
-
+ 
        if(res.acknowledged){
         await new Promise((resolve) => setTimeout(resolve, 1800));
         
